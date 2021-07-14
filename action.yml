@@ -1,0 +1,21 @@
+name: "verify-configuration"
+description: "verifies your configuration files"
+
+inputs:
+  host:
+    description: 'configuration service host'
+    required: true
+  service:
+    description: 'service name'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: verify
+      shell: bash
+      run: curl -f -i "http://$HOST/config-validation/$SERVICE?branchName=$BRANCH&rawFormatEnabled=false"
+      env:
+        HOST: ${{ inputs.host }}
+        SERVICE: ${{ inputs.service }}
+        BRANCH: ${{ github.head_ref }}
