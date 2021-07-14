@@ -14,7 +14,7 @@ runs:
   steps:
     - name: verify
       shell: bash
-      run: curl -f -i "$HOST/config-validation/$SERVICE?branchName=$BRANCH&rawFormatEnabled=false"
+      run: curl -f -i "https://$HOST/config-validation/$SERVICE?branchName=$BRANCH&rawFormatEnabled=false"
       env:
         HOST: ${{ inputs.host }}
         SERVICE: ${{ inputs.service }}
