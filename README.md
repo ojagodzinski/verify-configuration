@@ -8,7 +8,7 @@ This action verifies your config files.
 steps:
   - uses: allegro-actions/verify-configuration@v1
     with:
-      host: configurataion-service
+      host: configurataion-service-hostname
       service: service-name
 ```
 
