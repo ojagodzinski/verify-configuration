@@ -14,7 +14,21 @@ runs:
   steps:
     - name: verify
       shell: bash
-      run: curl -f -i "https://$HOST/config-validation/$SERVICE?branchName=$BRANCH&rawFormatEnabled=false"
+      run: |
+        #!/bin/bash
+        VALIDATION_ENDPOINT="$HOST/config-validation/$SERVICE?branchName=$BRANCH&rawFormatEnabled=false"
+        echo "Invoke $VALIDATION_ENDPOINT"
+        response=$(curl -s -w "\n%{http_code}" $VALIDATION_ENDPOINT)
+        http_code=$(tail -n1 <<< "$response")  # get the last line
+        content=$(sed '$ d' <<< "$response")   # get all but the last line which contains the http code
+        if [[ "$http_code" -ne 200 ]] ; then
+          echo "Configuration service http response code: $http_code"
+          echo $content
+          exit -1
+        else
+          echo "No errors found"
+          exit 0
+        fi
       env:
         HOST: ${{ inputs.host }}
         SERVICE: ${{ inputs.service }}
