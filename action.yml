@@ -16,7 +16,7 @@ runs:
       shell: bash
       run: |
         #!/bin/bash
-        VALIDATION_ENDPOINT="https://$HOST/config-validation/$SERVICE?branchName=$BRANCH&rawFormatEnabled=false"
+        VALIDATION_ENDPOINT="http://$HOST/config-validation/$SERVICE?branchName=$BRANCH&rawFormatEnabled=false"
         echo "Invoke $VALIDATION_ENDPOINT"
         response=$(curl -s -w "\n%{http_code}" $VALIDATION_ENDPOINT)
         http_code=$(tail -n1 <<< "$response")  # get the last line
