@@ -16,6 +16,8 @@ steps:
       service: service-name
 ```
 Please notice that you should check out a branch, not a commit.
+Therefore, according to the [docs](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context),
+available workflow events are: `pull_request`, `pull_request_target`.
 
 ## Use cases
 
